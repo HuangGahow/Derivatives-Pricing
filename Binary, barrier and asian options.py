@@ -46,7 +46,6 @@ class Binary_option():
         digital_std_err = np.exp(-r*T) * ss.sem( S_T > K )
         return price_MC
 
-
 # In[1]
 
 """Option variables"""
@@ -56,8 +55,44 @@ T = 1.0                 # maturity
 r = 0.1                 # risk free rate 
 sigma = 0.2               # diffusion coefficient or volatility
 
-gahow = Binary_option(S0, K, r, T, sigma, 'put')
+gahow = Binary_option(S0, K, r, T, sigma)
 gahow.get_price_MC(N_simulation=200000)
 
+
 # In[2]
-"""continuing"""
+"""plot relation between stock price and option price"""
+Nspace = 6000   # M space steps
+Ntime = 6000    # N time steps   
+S_max = 3*float(K)                
+S_min = float(K)/3
+x_max = np.log(S_max)  # A2
+x_min = np.log(S_min)  # A1
+
+x, dx = np.linspace(x_min, x_max, Nspace, retstep=True)    # space discretization
+T_array, dt = np.linspace(0, T, Ntime, retstep=True)       # time discretization
+
+
+# In[3]
+Payoff = np.where(np.exp(x)>K, 1, 0) 
+S = np.exp(x)
+
+def currying_add(func):
+    def wrapper(S0, K=100.0, r=0.1, T=1.0, sigma=0.2):
+        return func(S0, K, r, T, sigma)
+    return wrapper
+
+@currying_add
+def getprice(S0, K, r, T, sigma):
+    return Binary_option(S0, K, r, T, sigma).get_price_CF()
+ 
+V = list(map(getprice, S))
+
+
+
+fig = plt.figure()
+ax1 = fig.add_subplot()
+ax1.plot(S, Payoff, color='blue',label="Payoff")
+ax1.plot(S, V, color='red',label="Binary curve")
+ax1.set_xlim(60,200); ax1.set_ylim(0,1.1)
+ax1.set_xlabel("S"); ax1.set_ylabel("V"); ax1.legend(loc='upper left')
+ax1.set_title("Curve at t=0")
