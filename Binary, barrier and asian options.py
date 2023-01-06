@@ -29,7 +29,7 @@ class Binary_option():
         self.cp_flag = cp_flag # call or put
         
     def get_price_CF(self):
-        """CF means close form"""
+        """CF: close form"""
         self.d2 = (log(self.S0 / self.K) + (self.r - 0.5 * self.sigma ** 2)*self.T
                    ) / (self.sigma * sqrt(self.T))
         if self.cp_flag == 'call':
@@ -39,13 +39,16 @@ class Binary_option():
         return price_CF
     
     def get_price_MC(self, N_simulation=20000):
-        """MC means Monte Carlo"""
+        """MC: Monte Carlo"""
         W = (r - sigma**2/2)*T  + ss.norm.rvs(loc=0, scale=sigma, size=N_simulation)
         S_T = S0 * np.exp(W)
         price_MC = np.exp(-r*T) * np.mean( S_T > K )
         digital_std_err = np.exp(-r*T) * ss.sem( S_T > K )
         return price_MC
 
+    
+  class Barrier_option:
+    def __init__(self, S0,)
 # In[1]
 
 """Option variables"""
