@@ -64,17 +64,18 @@ class IV:
         return initial_value1
     
 # In[2]
-market_price=[45.7, 39.02, 37, 33.01, 29.02, 25.5, 22, 18.55, 15.35, 12.52, 9.95, 7.9, 6, 4.55, 3.25, 2.35, 1.66, 1.2, 0.89]
+
 """
-S:AAPL's price in 2020/05/04 
+S:AAPL's price in 2023/01/13
 r:1 year treasury rate (https://ycharts.com/indicators/1_year_treasury_rate)
-K:Strike price of AAPL's options (https://www.barchart.com/stocks/quotes/AAPL/options?expiration=2020-06-19)
+K:Strike price of AAPL's options (https://www.barchart.com/stocks/quotes/AAPL/options?expiration=2023-01-13)
 """
-K=np.arange(250, 345, 5)
-paris = zip(market_price, K)
+market_price=[9.55, 8.55, 7.53, 6.55, 5.55, 4.53, 3.58,2.38, 1.86,1.18, 0.66, 0.33, 0.15, 0.07, 0.03,0.02,0.01,0.01,0.01,0.01]
+K=np.arange(124, 143, 1)
+pairs = zip(market_price, K)
 T=46/365
-S=293.16
-r= 0.16/100
+S=133.41
+r= 4.66/100
 flag = 'call'
 initial_value = 0.5
 iterations = 1000
