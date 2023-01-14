@@ -21,7 +21,7 @@ q = dividend rate
 V = price of option
 '''
 # In[1]
-class IV:
+class IV():
     def __init__(self, S, K, market_price, T, r, flag, initial_value, iterations, precision):
         self.S = S
         self.K = K
