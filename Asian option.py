@@ -63,9 +63,7 @@ class Asian_option():
                                       size = (paths, Nsteps-1))
         X = np.concatenate((X_0, increments), axis=1).cumsum(1)
         S = S0 * exp(X)
-        
-        
-        
+
         
         if strike_flag == 'fix':
             if cp_flag == 'call':
@@ -92,6 +90,12 @@ class Asian_option():
     def get_price_PDE(self):
         
         if strike_flag == 'fix':
+            def gamma(t):
+                 return 1/(r*T) * ( 1 - np.exp(-r*(T-t)) )
+
+            def get_X0(S0):
+             """ function that computes the variable x defined above """
+                return gamma(0)*S0 - np.exp(-r*T) * K
             
             
             

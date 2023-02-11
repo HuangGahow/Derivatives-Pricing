@@ -6,7 +6,7 @@ Created on Wed Nov 23 14:57:23 2022
 """
 
 
-def simulation(S, r, T, sigma, I,dn = 0, steps = 1000, plotpath = False, plothist = False):
+def simulation(S, r, T, sigma, I, dn = 0, steps = 1000, plotpath = False, plothist = False):
     """
 
     :param S: 初始价格
